@@ -1,0 +1,8 @@
+# ignore
+*.cfg
+*__pycache__*
+*.pyc
+
+# except
+!setup.cfg
+!gmpyinfr_dbutils/examples/example_conn.cfg
