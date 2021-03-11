@@ -2,6 +2,9 @@
 *.cfg
 *__pycache__*
 *.pyc
+*build/*
+*dist/*
+*.egg-info/*
 
 # except
 !setup.cfg
