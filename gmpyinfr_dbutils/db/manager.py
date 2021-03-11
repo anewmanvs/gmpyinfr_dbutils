@@ -102,7 +102,26 @@ class Manager:
         self.__test_conn()
         utils.fast_upload(self.conn, tablename, df, identity_insert)
 
-    def __exit__(self, type, value, traceback):
+    def execute(self, query):
+        """
+        Executa uma query qualquer.
+
+        Params:
+            - query : str consulta ou statement a ser executada.
+        """
+
+        with self.get_cursor() as cursor:
+            cursor.execute(query)
+            rtn = cursor.fetchall()
+
+        return rtn
+
+    def close(self):
+        """Encerra conexão."""
 
         if self.conn is not None:
             self.conn.close()
+
+    def __exit__(self, type, value, traceback):
+
+        self.close()

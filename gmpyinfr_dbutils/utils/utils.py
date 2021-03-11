@@ -6,6 +6,8 @@ import re
 
 import turbodbc
 import pandas as pd
+from datetime import date
+from numpy.ma import MaskedArray
 
 def read_conf_file(filepath):
     """
@@ -54,7 +56,7 @@ def fast_upload(conn, tablename, df, identity_insert=False):
     Em caso de erro, lança uma exceção. Não há retorno.
 
     Caso no parâmetro 'conn' seja informado um turbodbc.cursor.Cursor, o usuário deve
-    realizar o commit ao final da execução e fechar o cursor, manualmente.
+    realizar commit ou rollback ao final da execução e fechar o cursor, manualmente.
     Caso no parâmetro seja informado um objeto turbodbc.connection.Connection, a rotina
     irá realizar o commit no cursor e o fechará ao final.
 
@@ -81,6 +83,15 @@ def fast_upload(conn, tablename, df, identity_insert=False):
                 "Esperava param 'conn' sendo 'Connection' ou 'Cursor' do 'turbodbc'")
         return _is_conn
 
+    def convert_t(x):
+        """Faz a conversão para os tipos esperados."""
+
+        if x.dtype == 'object' and isinstance(x[0], date):
+            return pd.to_datetime(x).values
+        elif x.dtype == 'datetime64[ns]':
+            return x
+        return MaskedArray(x, pd.isnull(x))
+
     is_conn =  test_type_conn()
 
     if not isinstance(df, pd.DataFrame):
@@ -102,19 +113,22 @@ def fast_upload(conn, tablename, df, identity_insert=False):
     else:
         cursor = conn
 
+    val = [convert_t(df[x].values) for x in df.columns]
+
     try:
         if identity_insert:
             cursor.execute(qii.format(tablename, 'ON'))
 
-        cursor.executemanycolumns(ins, *(df[x].values for x in df.columns))
+        cursor.executemanycolumns(ins, val)
 
         if identity_insert:
             cursor.execute(qii.format(tablename, 'OFF'))
 
         if is_conn:
-            cursor.commit()
+            conn.commit()
     except:
-        cursor.rollback()
+        if is_conn:
+            conn.rollback()
         raise
     finally:
         if is_conn:
