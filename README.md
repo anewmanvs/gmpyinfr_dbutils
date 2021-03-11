@@ -43,7 +43,7 @@ Apenas após a finalização com sucesso dos passos acima, execute os seguintes 
 
 ```bash
 sudo apt update
-sudo apt install -y apt-transport-https ca-certificates curl gnupg2
+sudo apt install -y apt-transport-https ca-certificates curl gnupg2 lsb-release
 
 sudo su
 
