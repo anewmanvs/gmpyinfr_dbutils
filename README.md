@@ -1,6 +1,6 @@
 # gmpyinfr_dbutils
 
-Módulo de funções e métodos úteis de banco de dados para o dia-a-dia da equipe de Ciência de Dados da Pulse, uma empresa do Grupo Mateus.
+Módulo de funções e métodos úteis de banco de dados para o dia-a-dia de uma equipe de Ciência de Dados.
 
 ## Instalação
 
