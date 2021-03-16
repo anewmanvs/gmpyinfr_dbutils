@@ -1,4 +1,4 @@
-# GMPYINFR
+# gmpyinfr_dbutils
 
 Módulo de funções e métodos úteis de banco de dados para o dia-a-dia da equipe de Ciência de Dados da Pulse, uma empresa do Grupo Mateus.
 
@@ -78,3 +78,21 @@ Em algumas situações, durante a utilização, este tipo de erro pode ocorrer:
 ```
 
 Favor verifique o conteúdo do arquivo `odbcinst.ini` que pode ser encontrado normalmente em `/etc/odbcinst.ini` ou em `$HOME/.odbcinst.ini`. Caso neste arquivo a linha que indica o local do driver esteja preenchida sem o *fullpath* faça a correção inserindo o caminho completo da lib.
+
+### Instalação do pacote
+
+Após a instalação das dependências acima, pode-se instalar o pacote através do pip, pelo comando
+
+```bash
+pip install gmpyinfr-dbutils
+```
+
+Há um projeto mantido no PyPi para facilitar o acesso ao pacote. Pode-se visualizar através [deste link](https://pypi.org/project/gmpyinfr-dbutils/).
+
+Se pretende instalar a partir do source (este repositório), deve-se criar as wheels e instalar a partir do pip através do seguinte comando:
+
+```bash
+python setup.py bdist_wheel
+pip install dist/*.whl
+rm -rf build/ gmpyinfr_dbutils.egg-info/ dist/
+```
