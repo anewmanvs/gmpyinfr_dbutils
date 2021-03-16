@@ -20,11 +20,13 @@ Módulo de funções e métodos úteis de banco de dados para o dia-a-dia de uma
 - 16.04 (xenial)
 - 14.04 (trusty)
 
-Demais distribuições linux devem funcionar sem problemas mas têm comandos e processo de instalação diferentes. Caso este seja o seu caso, por favor verifique a documentação do [`turbodbc`](https://turbodbc.readthedocs.io/en/latest/pages/getting_started.html), [`Microsoft SQL Server`](https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15) e [`PostgreSQL`](https://www.postgresql.org/download/linux/).
+Demais distribuições linux devem funcionar sem problemas mas têm comandos e processo de instalação diferentes. Caso este seja o seu caso, por favor verifique a documentação do [`turbodbc`](https://turbodbc.readthedocs.io/en/latest/pages/getting_started.html), [`Microsoft SQL Server`](https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15), [`PostgreSQL`](https://www.postgresql.org/download/linux/) e [`Apache Arrow`](https://arrow.apache.org/install/).
 
-### C++ Packages para Debian/GNU Linux, Ubuntu e CentOS
+Dos tópicos de instalação abaixo, é obrigatório que os passos de **C++ Packages para Debian/GNU Linux, Ubuntu e CentOS** sejam seguidos à risca. Os demais tópicos (**Microsoft SQL Server drivers** e **PostgreSQL drivers**) serão instalados conforme a sua necessidade de acesso. Em caso de sistemas que irão acessar apenas tabelas no SQL Server, não é necessário instalar o PostgreSQL, e vice-versa. Para instalação na máquina dos cientistas, é recomendada que a instalação descrita nos dois tópicos seja realizada.
 
-Execute os comandos abaixo, na ordem fornecida
+### C++ Packages para Debian/GNU Linux, Ubuntu e CentOS (obrigatório)
+
+Execute os comandos abaixo, na ordem fornecida, para instalação das bibliotecas C++ do Apache Arrow, sources de desenvolvimento Python e Unix ODBC.
 
 ```bash
 sudo apt update
@@ -37,13 +39,13 @@ sudo apt update
 sudo apt install -y libarrow-dev libarrow-dataset-dev libarrow-python-dev
 ```
 
-### Microsoft SQL Server drivers
+### Microsoft SQL Server drivers (opcional)
 
 Apenas após a finalização com sucesso dos passos acima, execute os seguintes comandos. Para mais detalhes específicos da sua distro e passo a passo mais detalhado, visite a [página oficial da Microsoft](https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15).
 
 ```bash
 sudo apt update
-sudo apt install -y apt-transport-https ca-certificates curl gnupg2 lsb-release
+sudo apt install -y apt-transport-https curl gnupg2
 
 sudo su
 
@@ -60,7 +62,7 @@ sudo apt update
 sudo ACCEPT_EULA=Y apt -y install msodbcsql17
 ```
 
-### PostgreSQL drivers
+### PostgreSQL drivers (opcional)
 
 A instalação dos drivers do PostgreSQL é um pouco mais simples, embora alguns erros possam ocorrer. Siga o passo-a-passo abaixo para instalação dos drivers:
 
@@ -93,6 +95,6 @@ Se pretende instalar a partir do source (este repositório), deve-se criar as wh
 
 ```bash
 python setup.py bdist_wheel
-pip install dist/*.whl
-rm -rf build/ gmpyinfr_dbutils.egg-info/ dist/
+pip install dist/*.whl  # instalação no env atual
+rm -rf build/ gmpyinfr_dbutils.egg-info/ dist/  # remover diretórios e conteúdos do build
 ```
