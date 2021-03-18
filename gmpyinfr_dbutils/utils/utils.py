@@ -43,7 +43,7 @@ def read_conf_file(filepath):
     regex = re.compile(r'^(\w+)\s*=\s*(.+)$')
     confs = {k.lower(): v for k, v in [regex.findall(c)[0] for c in confs]}
     missing = must - set(confs.keys())
-    if missing:  # uma config óbrigatória está faltando
+    if missing:  # uma config obrigatória está faltando
         raise ValueError("Arquivo de configuração não contém os campos: '{}'".format(
             "', '".join(missing)))
 
