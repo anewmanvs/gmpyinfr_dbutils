@@ -1,5 +1,5 @@
 {% set name = "gmpyinfr_dbutils" %}
-{% set version = "0.0.4" %}
+{% set version = "0.0.6" %}
 
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/gmpyinfr_dbutils-{{ version }}.tar.gz
-  sha256: e9db9ac1bb2387081265e5ea9604812ee6ab7a68f8e812f385838127dee724ea
+  sha256: 1e4c000262e157d48f345ab0a3a734269c69af4842d80d6b8ff48dd55e071fb7
 
 build:
   number: 0
@@ -38,7 +38,6 @@ about:
   home: https://github.com/anewmanvs/gmpyinfr_dbutils
   summary: Infraestrutura dbutils python de uma equipe de Ciência de Dados
   license: GPL-3.0
-  license_family: GPL
   license_file: LICENSE
 
 extra:
