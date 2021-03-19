@@ -12,13 +12,14 @@ source:
 
 build:
   number: 0
+  noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  skip: True  # [win or osx]
+  skip: True  # [win or osx or py<3.6 or py>3.8]
 
 requirements:
   host:
     - pip
-    - python >=3.6,<3.8
+    - python
   run:
     - pandas >=1.0.0
     - pyarrow >=3.0.0
@@ -37,7 +38,8 @@ test:
 about:
   home: https://github.com/anewmanvs/gmpyinfr_dbutils
   summary: Infraestrutura dbutils python de uma equipe de Ciência de Dados
-  license: GPL-3.0
+  license: GPL-3.0-only
+  license_family: GPL
   license_file: LICENSE
 
 extra:
