@@ -1,0 +1,46 @@
+{% set name = "gmpyinfr_dbutils" %}
+{% set version = "0.0.4" %}
+
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/gmpyinfr_dbutils-{{ version }}.tar.gz
+  sha256: e9db9ac1bb2387081265e5ea9604812ee6ab7a68f8e812f385838127dee724ea
+
+build:
+  number: 0
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
+  skip: True  # [win or osx]
+
+requirements:
+  host:
+    - pip
+    - python >=3.6,<3.8
+  run:
+    - pandas >=1.0.0
+    - pyarrow >=3.0.0
+    - python >=3.6,<3.8
+    - turbodbc ==4.1.2
+
+test:
+  imports:
+    - gmpyinfr_dbutils
+    - gmpyinfr_dbutils.db
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/anewmanvs/gmpyinfr_dbutils
+  summary: Infraestrutura dbutils python de uma equipe de Ciência de Dados
+  license: AGPL-3.0
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - posix4e
