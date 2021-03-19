@@ -12,18 +12,17 @@ source:
 
 build:
   number: 0
-  noarch: python
   script: {{ PYTHON }} -m pip install . -vv
   skip: True  # [win or osx or py<3.6 or py>3.8]
 
 requirements:
   host:
-    - pip
     - python
+    - pip
   run:
+    - python
     - pandas >=1.0.0
     - pyarrow >=3.0.0
-    - python
     - turbodbc ==4.1.2
 
 test:
